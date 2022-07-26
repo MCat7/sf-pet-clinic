@@ -1,10 +1,7 @@
 package by.iba.sfpetclinic.bootstrap;
 
 import by.iba.sfpetclinic.model.*;
-import by.iba.sfpetclinic.services.OwnerService;
-import by.iba.sfpetclinic.services.PetTypeService;
-import by.iba.sfpetclinic.services.SpecialityService;
-import by.iba.sfpetclinic.services.VetService;
+import by.iba.sfpetclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +13,14 @@ public class DataLoad implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
+    private final VisitService visitService;
 
-    public DataLoad(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
+    public DataLoad(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -55,6 +54,10 @@ public class DataLoad implements CommandLineRunner {
         newPet.setName("Roki");
         ownerA.getPets().add(newPet);
         ownerService.save(ownerA);
+        Visit dogVisit = new Visit();
+        dogVisit.setPet(newPet);
+        dogVisit.setDate(LocalDate.now());
+        dogVisit.setDescription("bad mind");
         System.out.println(ownerService.findAll().size());
         Vet vetA = new Vet();
         vetA.setFirstName("Dina");
@@ -71,3 +74,4 @@ public class DataLoad implements CommandLineRunner {
         System.out.println(vetService.findAll().size());
     }
 }
+
