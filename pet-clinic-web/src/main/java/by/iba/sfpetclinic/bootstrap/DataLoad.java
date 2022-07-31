@@ -48,12 +48,20 @@ public class DataLoad implements CommandLineRunner {
         ownerA.setAddress("Scorini, 55");
         ownerA.setCity("Minsk");
         ownerA.setTelephone("+37529152432");
+        Owner ownerB = new Owner();
+        ownerB.setId(2L);
+        ownerB.setFirstName("Andrew");
+        ownerB.setLastName("Dufresne");
+        ownerB.setAddress("Scorini, 55");
+        ownerB.setCity("Minsk");
+        ownerB.setTelephone("+375291234567");
         Pet newPet = new Pet();
         newPet.setPetType(savedDogType);
         newPet.setBirthDate(LocalDate.now());
         newPet.setName("Roki");
         ownerA.getPets().add(newPet);
         ownerService.save(ownerA);
+        ownerService.save(ownerB);
         Visit dogVisit = new Visit();
         dogVisit.setPet(newPet);
         dogVisit.setDate(LocalDate.now());
@@ -71,7 +79,9 @@ public class DataLoad implements CommandLineRunner {
         vetA.getSpecialities().add(savedRadiology);
         vetA.getSpecialities().add(savedDentisty);
         vetService.save(vetB);
+
         System.out.println(vetService.findAll().size());
+
     }
 }
 
